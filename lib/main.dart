@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       title: 'Blog App',
       theme: AppTheme.darkThemeMode,
       debugShowCheckedModeBanner: false,
-      home: SignupScreen(),
+      home: const SignupScreen(),
     );
   }
 }
