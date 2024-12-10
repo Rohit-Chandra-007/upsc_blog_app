@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:upsc_blog_app/features/auth/presentation/screens/signup_screen.dart';
+import 'package:upsc_blog_app/core/routes/app_router.dart'; // Add this import
 
 import 'core/themes/app_theme.dart';
 
@@ -12,11 +12,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    // Initialize AppRouter
+
+    return MaterialApp.router(
       title: 'Blog App',
       theme: AppTheme.darkThemeMode,
       debugShowCheckedModeBanner: false,
-      home: const SignupScreen(),
+      routerConfig: AppRouterConfig.router, // Update this line
     );
   }
 }

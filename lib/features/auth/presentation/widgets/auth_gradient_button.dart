@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:upsc_blog_app/core/themes/app_color_pallete.dart';
 
 class AuthGradientButton extends StatelessWidget {
-  const AuthGradientButton({super.key});
+  const AuthGradientButton({super.key, this.isSignIn = false});
+  final bool isSignIn;
 
   @override
   Widget build(BuildContext context) {
@@ -30,9 +31,9 @@ class AuthGradientButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
           ),
         ),
-        child: const Text(
-          'Sign Up',
-          style: TextStyle(
+        child: Text(
+          !isSignIn ? 'Sign In' : 'Sign Up',
+          style: const TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
             color: Colors.white,

@@ -1,31 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:upsc_blog_app/core/routes/route_name.dart';
+import 'package:upsc_blog_app/core/routes/app_router.dart';
 import 'package:upsc_blog_app/core/themes/app_color_pallete.dart';
 import 'package:upsc_blog_app/features/auth/presentation/widgets/auth_field.dart';
-import 'package:upsc_blog_app/features/auth/presentation/widgets/auth_gradient_button.dart';
 
-class SignupScreen extends StatefulWidget {
-  const SignupScreen({super.key});
+import '../widgets/auth_gradient_button.dart';
+
+class SigninScreen extends StatefulWidget {
+  const SigninScreen({super.key});
 
   @override
-  State<SignupScreen> createState() => _SignupScreenState();
+  State<SigninScreen> createState() => _SigninScreenState();
 }
 
-class _SignupScreenState extends State<SignupScreen> {
-  final TextEditingController _nameController = TextEditingController();
+class _SigninScreenState extends State<SigninScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>(); // global key used for form
-
-  @override
-  void dispose() {
-    _nameController.dispose();
-    _emailController.dispose();
-    _passwordController.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,15 +29,13 @@ class _SignupScreenState extends State<SignupScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Text(
-                'Sign Up. ',
+                'Sign In. ',
                 style: TextStyle(
                   fontSize: 50,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               const SizedBox(height: 30),
-              AuthField(hintText: 'Name', controller: _nameController),
-              const SizedBox(height: 15),
               AuthField(hintText: 'Email', controller: _emailController),
               const SizedBox(height: 15),
               AuthField(
@@ -53,17 +43,15 @@ class _SignupScreenState extends State<SignupScreen> {
                   controller: _passwordController,
                   obsecureText: true),
               const SizedBox(height: 15),
-              const AuthGradientButton(
-                isSignIn: false,
-              ),
+              const AuthGradientButton(),
               const SizedBox(height: 15),
               GestureDetector(
                 onTap: () {
-                  context.goNamed(RouteNames.signin);
+                  context.goNamed(RouteNames.signup);
                 },
                 child: RichText(
                   text: TextSpan(
-                    text: '''Already have an account? ''',
+                    text: '''Don't have an account? ''',
                     style: Theme.of(context).textTheme.titleMedium,
                     children: [
                       TextSpan(
