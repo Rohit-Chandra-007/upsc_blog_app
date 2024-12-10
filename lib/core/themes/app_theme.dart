@@ -16,6 +16,10 @@ class AppTheme {
   static final darkThemeMode = ThemeData.dark().copyWith(
     scaffoldBackgroundColor: AppPallete.backgroundColor,
     primaryColor: Colors.purple,
+    appBarTheme: const AppBarTheme(
+      backgroundColor: AppPallete.backgroundColor,
+      elevation: 0,
+    ),
     textTheme: ThemeData.dark().textTheme.apply(
           fontFamily: 'Poppins',
         ),

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:upsc_blog_app/core/routes/route_name.dart';
@@ -29,6 +30,14 @@ class _SignupScreenState extends State<SignupScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(CupertinoIcons.chevron_back),
+          onPressed: () {
+            context.goNamed(RouteNames.signin);
+          },
+        ),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(15),
         child: Form(
