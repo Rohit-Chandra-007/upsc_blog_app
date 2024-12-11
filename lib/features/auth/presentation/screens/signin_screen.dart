@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:upsc_blog_app/core/routes/route_name.dart';
-import 'package:upsc_blog_app/core/routes/app_router.dart';
 import 'package:upsc_blog_app/core/themes/app_color_pallete.dart';
 import 'package:upsc_blog_app/features/auth/presentation/widgets/auth_field.dart';
 
@@ -43,7 +42,12 @@ class _SigninScreenState extends State<SigninScreen> {
                   controller: _passwordController,
                   obsecureText: true),
               const SizedBox(height: 15),
-              const AuthGradientButton(),
+              AuthGradientButton(
+                isSignIn: true,
+                onPressed: () {
+                  context.goNamed(RouteNames.home);
+                },
+              ),
               const SizedBox(height: 15),
               GestureDetector(
                 onTap: () {
