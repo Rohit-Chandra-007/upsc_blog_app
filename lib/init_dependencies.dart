@@ -1,6 +1,6 @@
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_it/get_it.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:upsc_blog_app/core/secretes/app_secretes.dart';
 import 'package:upsc_blog_app/features/auth/domain/repository/auth_repository.dart';
 
 import 'features/auth/data/datasources/auth_supabase_data_source.dart';
@@ -11,11 +11,22 @@ import 'features/auth/presentation/bloc/auth_bloc.dart';
 final serviceLocator = GetIt.instance;
 
 Future<void> initDependencies() async {
+  // Initialize Supabase
+  await _initSupabase();
+
+  // Register dependencies
   _initAuth();
+}
+
+Future<void> _initSupabase() async {
+  final supabaseUrl = dotenv.env['SUPABASE_URL'];
+  final supabaseAnonKey = dotenv.env['SUPABASE_ANON_KEY'];
+
   final supabase = await Supabase.initialize(
-    url: AppSecretes.supabaseUrl,
-    anonKey: AppSecretes.supabaseKey,
+    url: supabaseUrl!,
+    anonKey: supabaseAnonKey!,
   );
+
   serviceLocator.registerLazySingleton(() => supabase.client);
 }
 
