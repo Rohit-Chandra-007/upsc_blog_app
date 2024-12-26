@@ -2,6 +2,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_it/get_it.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:upsc_blog_app/features/auth/domain/repository/auth_repository.dart';
+import 'package:upsc_blog_app/features/auth/domain/usecases/user_sign_in.dart';
 
 import 'features/auth/data/datasources/auth_supabase_data_source.dart';
 import 'features/auth/data/repositories/auth_repository_impl.dart';
@@ -27,31 +28,34 @@ Future<void> _initSupabase() async {
     anonKey: supabaseAnonKey!,
   );
 
-  serviceLocator.registerLazySingleton(() => supabase.client);
+  serviceLocator.registerLazySingleton(() => supabase
+      .client); // registerLazySingleton is used to register a singleton instance of the client
 }
 
 void _initAuth() {
+  // registerFactory is used to register a factory function that returns a new instance of the AuthSupabaseDataSourceImpl
   serviceLocator.registerFactory<AuthSupabaseDataSource>(
     () => AuthSupabaseDataSourceImpl(
-      serviceLocator(),
+      serviceLocator<SupabaseClient>(),
     ),
   );
 
   serviceLocator.registerFactory<AuthRepository>(
     () => AuthRepositoryImpl(
-      serviceLocator(),
+      serviceLocator<AuthSupabaseDataSource>(),
     ),
   );
 
   serviceLocator.registerFactory(
     () => UserSignUp(
-      serviceLocator(),
+      serviceLocator<AuthRepository>(),
     ),
   );
 
   serviceLocator.registerLazySingleton(
     () => AuthBloc(
-      userSignup: serviceLocator(),
+      userSignup: serviceLocator<UserSignUp>(),
+      userSignIn: serviceLocator<UserSignIn>(),
     ),
   );
 }

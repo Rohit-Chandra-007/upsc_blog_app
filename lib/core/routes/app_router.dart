@@ -7,8 +7,9 @@ import 'route_name.dart';
 
 class AppRouterConfig {
   // Create the router configuration
+  // Helpful for debugging
   static final router = GoRouter(
-    debugLogDiagnostics: true, // Helpful for debugging
+    debugLogDiagnostics: true,
     initialLocation: RoutePaths.home,
     routes: [
       GoRoute(
@@ -27,6 +28,8 @@ class AppRouterConfig {
         name: RouteNames.signup,
         builder: (context, state) => const SignupScreen(),
       ),
+
+
     ],
   );
 }
