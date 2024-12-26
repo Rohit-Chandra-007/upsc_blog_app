@@ -47,15 +47,15 @@ class _SignupScreenState extends State<SignupScreen> {
           padding: const EdgeInsets.all(15),
           child: BlocConsumer<AuthBloc, AuthState>(
             listener: (context, state) {
-              // TODO: implement listener
+             if (state is AuthFailure) {
+                showSnackbar(context, state.message);
+              }
             },
             builder: (context, state) {
               if (state is AuthLoading) {
                 return const Loader();
               }
-              if (state is AuthFailure) {
-                showSnackbar(context, state.message);
-              }
+              
               return Form(
                 key: _formKey,
                 child: Column(

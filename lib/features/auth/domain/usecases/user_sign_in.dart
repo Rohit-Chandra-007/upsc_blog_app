@@ -1,4 +1,4 @@
-import 'package:fpdart/src/either.dart';
+import 'package:fpdart/fpdart.dart';
 import 'package:upsc_blog_app/core/error/failures.dart';
 import 'package:upsc_blog_app/core/usecase/usecase.dart';
 import 'package:upsc_blog_app/features/auth/domain/entities/user.dart';
