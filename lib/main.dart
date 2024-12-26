@@ -5,9 +5,11 @@ import 'package:upsc_blog_app/core/routes/app_router.dart'; // Add this import
 import 'package:upsc_blog_app/init_dependencies.dart';
 import 'core/themes/app_theme.dart';
 import 'features/auth/presentation/bloc/auth_bloc.dart';
+import 'core/services/logger_service.dart';
 
 void main() async {
   try {
+    logger.info('Application starting...');
     WidgetsFlutterBinding.ensureInitialized();
 
     // Load .env from assets
@@ -29,13 +31,25 @@ void main() async {
         child: const MyApp(),
       ),
     );
-  } catch (e) {
+  } catch (e, stackTrace) {
+    logger.error('Error during app initialization', e, stackTrace);
     rethrow;
   }
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<AuthBloc>().add(const AuthIsUserSignedInEvent());
+  }
 
   @override
   Widget build(BuildContext context) {

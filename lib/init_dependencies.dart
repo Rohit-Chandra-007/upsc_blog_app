@@ -2,6 +2,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_it/get_it.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:upsc_blog_app/features/auth/domain/repository/auth_repository.dart';
+import 'package:upsc_blog_app/features/auth/domain/usecases/current_user.dart';
 import 'package:upsc_blog_app/features/auth/domain/usecases/user_sign_in.dart';
 
 import 'features/auth/data/datasources/auth_supabase_data_source.dart';
@@ -34,34 +35,41 @@ Future<void> _initSupabase() async {
 
 void _initAuth() {
   // registerFactory is used to register a factory function that returns a new instance of the AuthSupabaseDataSourceImpl
-  serviceLocator.registerFactory<AuthSupabaseDataSource>(
-    () => AuthSupabaseDataSourceImpl(
-      serviceLocator<SupabaseClient>(),
-    ),
-  );
-
-  serviceLocator.registerFactory<AuthRepository>(
-    () => AuthRepositoryImpl(
-      serviceLocator<AuthSupabaseDataSource>(),
-    ),
-  );
-
-  serviceLocator.registerFactory(
-    () => UserSignUp(
-      serviceLocator<AuthRepository>(),
-    ),
-  );
-
-  serviceLocator.registerFactory(
-    () => UserSignIn(
-      serviceLocator<AuthRepository>(),
-    ),
-  );
-
-  serviceLocator.registerLazySingleton(
-    () => AuthBloc(
-      userSignup: serviceLocator<UserSignUp>(),
-      userSignIn: serviceLocator<UserSignIn>(),
-    ),
-  );
+  serviceLocator
+    ..registerFactory<AuthSupabaseDataSource>(
+      () => AuthSupabaseDataSourceImpl(
+        serviceLocator<SupabaseClient>(),
+      ),
+    )
+    // registerFactory is used to register a factory function that returns a new instance of the AuthRepositoryImpl
+    ..registerFactory<AuthRepository>(
+      () => AuthRepositoryImpl(
+        serviceLocator<AuthSupabaseDataSource>(),
+      ),
+    )
+    // registerFactory is used to register a factory function that returns a new instance of the UserSignUp
+    ..registerFactory(
+      () => UserSignUp(
+        serviceLocator<AuthRepository>(),
+      ),
+    )
+    // registerFactory is used to register a factory function that returns a new instance of the UserSignIn
+    ..registerFactory(
+      () => UserSignIn(
+        serviceLocator<AuthRepository>(),
+      ),
+    )
+    ..registerFactory(
+      () => CurrentUser(
+        serviceLocator<AuthRepository>(),
+      ),
+    )
+    // registerLazySingleton is used to register a singleton instance of the AuthBloc
+    ..registerLazySingleton(
+      () => AuthBloc(
+        userSignup: serviceLocator<UserSignUp>(),
+        userSignIn: serviceLocator<UserSignIn>(),
+        currentUser: serviceLocator<CurrentUser>(),
+      ),
+    );
 }

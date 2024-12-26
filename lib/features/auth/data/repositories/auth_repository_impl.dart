@@ -25,6 +25,21 @@ class AuthRepositoryImpl implements AuthRepository {
         .signInWithEmailPassword(email: email, password: password));
   }
 
+  @override
+  Future<Either<Failure, User>> currentUser() async {
+    try {
+      final user = await authSupabaseDataSource.getUserCurrentData();
+      if (user == null) {
+        return Left(CacheFailure('User is not logged in'));
+      }
+      return Right(user);
+    } on supabase.AuthException catch (e) {
+      return Left(CacheFailure(e.message));
+    } on ServerException catch (e) {
+      return Left(ServerFailure(e.message));
+    }
+  }
+
   Future<Either<Failure, User>> _getUser(Future<User> Function() fn) async {
     try {
       final user = await fn();
