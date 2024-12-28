@@ -23,6 +23,13 @@ class AppTheme {
     textTheme: ThemeData.dark().textTheme.apply(
           fontFamily: 'Poppins',
         ),
+    chipTheme: ThemeData.dark().chipTheme.copyWith(
+          backgroundColor: AppPallete.backgroundColor,
+          labelStyle: const TextStyle(
+            color: AppPallete.whiteColor,
+          ),
+          side: BorderSide.none,
+        ),
     inputDecorationTheme: InputDecorationTheme(
       hintStyle: const TextStyle(
         color: AppPallete.greyColor,
