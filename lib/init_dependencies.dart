@@ -1,6 +1,7 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_it/get_it.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:upsc_blog_app/core/common/cubits/app_user/app_user_cubit.dart';
 import 'package:upsc_blog_app/features/auth/domain/repository/auth_repository.dart';
 import 'package:upsc_blog_app/features/auth/domain/usecases/current_user.dart';
 import 'package:upsc_blog_app/features/auth/domain/usecases/user_sign_in.dart';
@@ -31,6 +32,11 @@ Future<void> _initSupabase() async {
 
   serviceLocator.registerLazySingleton(() => supabase
       .client); // registerLazySingleton is used to register a singleton instance of the client
+
+  // core dependency
+  serviceLocator.registerLazySingleton(
+    () => AppUserCubit(),
+  );
 }
 
 void _initAuth() {
@@ -67,9 +73,9 @@ void _initAuth() {
     // registerLazySingleton is used to register a singleton instance of the AuthBloc
     ..registerLazySingleton(
       () => AuthBloc(
-        userSignup: serviceLocator<UserSignUp>(),
-        userSignIn: serviceLocator<UserSignIn>(),
-        currentUser: serviceLocator<CurrentUser>(),
-      ),
+          userSignup: serviceLocator<UserSignUp>(),
+          userSignIn: serviceLocator<UserSignIn>(),
+          currentUser: serviceLocator<CurrentUser>(),
+          appUserCubit: serviceLocator<AppUserCubit>()),
     );
 }

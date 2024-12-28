@@ -3,7 +3,7 @@ import 'package:supabase_flutter/supabase_flutter.dart' as supabase;
 import 'package:upsc_blog_app/core/error/exception.dart';
 import 'package:upsc_blog_app/core/error/failures.dart';
 import 'package:upsc_blog_app/features/auth/data/datasources/auth_supabase_data_source.dart';
-import 'package:upsc_blog_app/features/auth/domain/entities/user.dart';
+import 'package:upsc_blog_app/core/entities/user.dart';
 import 'package:upsc_blog_app/features/auth/domain/repository/auth_repository.dart';
 
 class AuthRepositoryImpl implements AuthRepository {

@@ -1,8 +1,10 @@
-import 'package:go_router/go_router.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'package:go_router/go_router.dart';
+import 'package:upsc_blog_app/core/common/cubits/app_user/app_user_cubit.dart';
 import 'package:upsc_blog_app/features/auth/presentation/screens/signin_screen.dart';
 import 'package:upsc_blog_app/features/auth/presentation/screens/signup_screen.dart';
-
 import 'route_name.dart';
 
 class AppRouterConfig {
@@ -15,7 +17,19 @@ class AppRouterConfig {
       GoRoute(
         path: RoutePaths.home,
         name: RouteNames.home,
-        builder: (context, state) => const SigninScreen(),
+        builder: (context, state) =>
+            BlocSelector<AppUserCubit, AppUserState, bool>(
+          selector: (state) => state is AppUserSignedIn,
+          builder: (context, isSignedIn) {
+            return isSignedIn
+                ? const Scaffold(
+                    body: Center(
+                      child: Text("Home"),
+                    ),
+                  )
+                : const SigninScreen();
+          },
+        ),
       ),
       // Auth routes
       GoRoute(
@@ -28,8 +42,6 @@ class AppRouterConfig {
         name: RouteNames.signup,
         builder: (context, state) => const SignupScreen(),
       ),
-
-
     ],
   );
 }
