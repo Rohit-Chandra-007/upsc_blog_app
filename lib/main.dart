@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:upsc_blog_app/core/common/cubits/app_user/app_user_cubit.dart';
 import 'package:upsc_blog_app/core/routes/app_router.dart'; // Add this import
+import 'package:upsc_blog_app/features/blog/presentation/bloc/blog_bloc.dart';
 import 'package:upsc_blog_app/init_dependencies.dart';
 import 'core/themes/app_theme.dart';
 import 'features/auth/presentation/bloc/auth_bloc.dart';
@@ -30,6 +31,9 @@ void main() async {
           ),
           BlocProvider(
             create: (context) => serviceLocator<AuthBloc>(),
+          ),
+          BlocProvider(
+            create: (context) => serviceLocator<BlogBloc>(),
           ),
         ],
         child: const MyApp(),
