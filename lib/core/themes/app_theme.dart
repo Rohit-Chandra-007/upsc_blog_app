@@ -39,6 +39,7 @@ class AppTheme {
         vertical: 30,
         horizontal: 30,
       ),
+      border: _boarder(),
       enabledBorder: _boarder(color: AppPallete.borderColor),
       focusedBorder: _boarder(color: AppPallete.gradient2),
       errorBorder: _boarder(color: AppPallete.errorColor),

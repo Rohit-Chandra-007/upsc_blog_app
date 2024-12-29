@@ -12,8 +12,14 @@ class BlogEditor extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
       controller: controller,
+      validator: (value) {
+        if (value!.isEmpty) {
+          return 'These Field cannot be empty';
+        }
+        return null;
+      },
       maxLines: null,
       keyboardType: TextInputType.multiline,
       decoration: InputDecoration(
