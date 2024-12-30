@@ -1,14 +1,16 @@
 import 'package:upsc_blog_app/features/blog/domain/entities/blog.dart';
 
 class BlogModel extends Blog {
-  BlogModel(
-      {required super.id,
-      required super.userId,
-      required super.title,
-      required super.content,
-      required super.imageUrl,
-      required super.topics,
-      required super.createdAt});
+  BlogModel({
+    required super.id,
+    required super.userId,
+    required super.title,
+    required super.content,
+    required super.imageUrl,
+    required super.topics,
+    required super.createdAt,
+    super.userName,
+  });
 
   BlogModel copyWith({
     String? id,
@@ -18,6 +20,7 @@ class BlogModel extends Blog {
     String? imageUrl,
     List<String>? topics,
     DateTime? createdAt,
+    String? userName,
   }) {
     return BlogModel(
       id: id ?? this.id,
@@ -27,6 +30,7 @@ class BlogModel extends Blog {
       imageUrl: imageUrl ?? this.imageUrl,
       topics: topics ?? this.topics,
       createdAt: createdAt ?? this.createdAt,
+      userName: userName ?? this.userName,
     );
   }
 

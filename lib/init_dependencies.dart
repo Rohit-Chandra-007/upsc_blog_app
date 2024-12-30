@@ -7,6 +7,7 @@ import 'package:upsc_blog_app/features/auth/domain/usecases/current_user.dart';
 import 'package:upsc_blog_app/features/auth/domain/usecases/user_sign_in.dart';
 import 'package:upsc_blog_app/features/blog/data/datasources/supabase_blog_remote_datasource.dart';
 import 'package:upsc_blog_app/features/blog/data/repositories/blog_repository_impl.dart';
+import 'package:upsc_blog_app/features/blog/domain/usecases/fetch_all_blog.dart';
 import 'package:upsc_blog_app/features/blog/domain/usecases/upload_blog.dart';
 
 import 'features/auth/data/datasources/auth_supabase_data_source.dart';
@@ -107,9 +108,15 @@ void _initBlog() {
         serviceLocator<BlogRepository>(),
       ),
     )
+    ..registerFactory(
+      () => FetchAllBlog(
+        serviceLocator<BlogRepository>(),
+      ),
+    )
     ..registerLazySingleton(
       () => BlogBloc(
-        serviceLocator<UploadBlog>(),
+        uploadBlog: serviceLocator<UploadBlog>(),
+        fetchAllBlog: serviceLocator<FetchAllBlog>(),
       ),
     );
 }

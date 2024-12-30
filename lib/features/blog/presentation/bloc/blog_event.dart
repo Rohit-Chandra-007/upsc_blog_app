@@ -25,3 +25,7 @@ final class BlogUploadEvent extends BlogEvent {
   @override
   List<Object> get props => [image, title, content, userId, topics];
 }
+
+final class BlogFetchAllEvent extends BlogEvent {
+  const BlogFetchAllEvent();
+}

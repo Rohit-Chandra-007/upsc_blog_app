@@ -1,7 +1,7 @@
 import 'dart:io';
-
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:upsc_blog_app/core/error/exception.dart';
+import 'package:upsc_blog_app/core/error/failures.dart';
 import 'package:upsc_blog_app/features/blog/data/models/blog_model.dart';
 
 abstract interface class SupabaseBlogRemoteDatasource {
@@ -13,6 +13,8 @@ abstract interface class SupabaseBlogRemoteDatasource {
     required File image,
     required BlogModel blog,
   });
+
+  Future<List<BlogModel>> getAllBlogs();
 }
 
 class SupabaseBlogRemoteDatasourceImpl implements SupabaseBlogRemoteDatasource {
@@ -54,6 +56,23 @@ class SupabaseBlogRemoteDatasourceImpl implements SupabaseBlogRemoteDatasource {
           );
     } on Exception catch (e) {
       throw ServerException(message: e.toString());
+    }
+  }
+
+  @override
+  Future<List<BlogModel>> getAllBlogs() async {
+    try {
+      final response = await client.from('blogs').select('*, profiles(name)');
+
+      return response
+          .map(
+            (e) => BlogModel.fromJson(e).copyWith(
+              userName: e['profiles']['name'],
+            ),
+          )
+          .toList();
+    } on ServerException catch (e) {
+      throw ServerFailure(e.toString());
     }
   }
 }
