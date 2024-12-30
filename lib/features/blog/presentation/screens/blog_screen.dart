@@ -57,13 +57,20 @@ class _BlogScreenState extends State<BlogScreen> {
               itemCount:
                   state.blogs.length, // Replace with actual blog posts count
               itemBuilder: (context, index) {
-                return BlogCard(
-                  blog: state.blogs[index],
-                  color: index % 3 == 0
-                      ? AppPallete.gradient2
-                      : index % 3 == 1
-                          ? AppPallete.gradient3
-                          : AppPallete.gradient1,
+                return GestureDetector(
+                  onTap: () {
+                    // Navigate to Blog Reader Screen
+                    context.pushNamed(RouteNames.blogReader,
+                        extra: state.blogs[index]);
+                  },
+                  child: BlogCard(
+                    blog: state.blogs[index],
+                    color: index % 3 == 0
+                        ? AppPallete.gradient2
+                        : index % 3 == 1
+                            ? AppPallete.gradient3
+                            : AppPallete.gradient1,
+                  ),
                 );
               },
             );

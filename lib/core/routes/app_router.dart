@@ -2,9 +2,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:go_router/go_router.dart';
 import 'package:upsc_blog_app/core/common/cubits/app_user/app_user_cubit.dart';
+import 'package:upsc_blog_app/core/services/logger_service.dart';
 import 'package:upsc_blog_app/features/auth/presentation/screens/signin_screen.dart';
 import 'package:upsc_blog_app/features/auth/presentation/screens/signup_screen.dart';
+import 'package:upsc_blog_app/features/blog/domain/entities/blog.dart';
 import 'package:upsc_blog_app/features/blog/presentation/screens/add_new_blog_screen.dart';
+import 'package:upsc_blog_app/features/blog/presentation/screens/blog_reader_screen.dart';
 import 'package:upsc_blog_app/features/blog/presentation/screens/blog_screen.dart';
 import 'route_name.dart';
 
@@ -44,9 +47,22 @@ class AppRouterConfig {
         builder: (context, state) => const BlogScreen(),
       ),
       GoRoute(
-          path: RoutePaths.addNewBlog,
-          name: RouteNames.addNewBlog,
-          builder: (context, state) => const AddNewBlogScreen()),
+        path: RoutePaths.addNewBlog,
+        name: RouteNames.addNewBlog,
+        builder: (context, state) => const AddNewBlogScreen(),
+      ),
+      GoRoute(
+          path: RoutePaths.blogReader,
+          name: RouteNames.blogReader,
+          builder: (context, state) {
+            // Extract the blog id from the state
+            // Retrieve the data from `state.extra` and cast it to the correct type
+            final Blog blog = state.extra as Blog;
+            
+            return BlogReaderScreen(
+              blog: blog,
+            );
+          }),
     ],
   );
 }

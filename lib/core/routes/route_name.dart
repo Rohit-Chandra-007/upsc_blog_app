@@ -5,6 +5,7 @@ class RouteNames {
   static const String signup = 'signup';
   static const String blog = 'blog';
   static const String addNewBlog = 'addNewBlog';
+  static const String blogReader = 'blogReader';
 }
 
 class RoutePaths {
@@ -14,4 +15,5 @@ class RoutePaths {
   static const String signup = '/signup';
   static const String blog = '/blog';
   static const String addNewBlog = '/addNewBlog';
+  static const String blogReader = '/blogReader';
 }
