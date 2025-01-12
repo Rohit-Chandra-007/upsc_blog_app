@@ -34,7 +34,7 @@ class _BlogScreenState extends State<BlogScreen> {
           IconButton(
             onPressed: () {
               // Navigate to Add New Blog Screen
-              context.goNamed(RouteNames.addNewBlog);
+              context.pushNamed(RouteNames.addNewBlog);
             },
             icon: const Icon(
               CupertinoIcons.add_circled,

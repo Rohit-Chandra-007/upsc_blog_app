@@ -73,7 +73,7 @@ class _AddNewBlogScreenState extends State<AddNewBlogScreen> {
         leading: IconButton(
           icon: const Icon(CupertinoIcons.chevron_back),
           onPressed: () {
-            context.goNamed(RouteNames.blog);
+            context.pop();
           },
         ),
         actions: [

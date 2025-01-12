@@ -38,7 +38,7 @@ class _SignupScreenState extends State<SignupScreen> {
         leading: IconButton(
           icon: const Icon(CupertinoIcons.chevron_back),
           onPressed: () {
-            context.goNamed(RouteNames.signin);
+            context.pop();
           },
         ),
       ),
