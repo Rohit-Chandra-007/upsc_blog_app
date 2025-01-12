@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Add your Android 12+ (v31) style definitions here -->
+    <style name="LaunchTheme" parent="@android:style/Theme.Light.NoTitleBar">
+        <!-- For example: -->
+        <item name="android:windowSplashScreenBackground">@color/splash_bg_dark</item>
+    </style>
+</resources>
