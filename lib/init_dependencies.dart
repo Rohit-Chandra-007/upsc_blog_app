@@ -1,10 +1,15 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_it/get_it.dart';
+import 'package:hive/hive.dart';
+import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:upsc_blog_app/core/common/cubits/app_user/app_user_cubit.dart';
+import 'package:upsc_blog_app/core/network/connection_checker.dart';
 import 'package:upsc_blog_app/features/auth/domain/repository/auth_repository.dart';
 import 'package:upsc_blog_app/features/auth/domain/usecases/current_user.dart';
 import 'package:upsc_blog_app/features/auth/domain/usecases/user_sign_in.dart';
+import 'package:upsc_blog_app/features/blog/data/datasources/blog_local_data_source.dart';
 import 'package:upsc_blog_app/features/blog/data/datasources/supabase_blog_remote_datasource.dart';
 import 'package:upsc_blog_app/features/blog/data/repositories/blog_repository_impl.dart';
 import 'package:upsc_blog_app/features/blog/domain/usecases/fetch_all_blog.dart';
@@ -39,13 +44,23 @@ Future<void> _initSupabase() async {
     anonKey: supabaseAnonKey!,
   );
 
-  serviceLocator.registerLazySingleton(() => supabase
-      .client); // registerLazySingleton is used to register a singleton instance of the client
+  Hive.defaultDirectory = (await getApplicationDocumentsDirectory()).path;
 
-  // core dependency
-  serviceLocator.registerLazySingleton(
-    () => AppUserCubit(),
-  );
+  // registoring the internet connection checker
+  serviceLocator
+    ..registerFactory(() => InternetConnection())
+
+    // Hive
+    ..registerLazySingleton<Box>(() => Hive.box(name: 'blogs'))
+
+    // add the ConnectionCheckerImpl to the serviceLocator
+    ..registerFactory<ConnectionChecker>(
+      () => ConnectionCheckerImpl(
+        serviceLocator<InternetConnection>(),
+      ),
+    )
+    ..registerLazySingleton(() => supabase.client)
+    ..registerLazySingleton(() => AppUserCubit());
 }
 
 void _initAuth() {
@@ -60,6 +75,7 @@ void _initAuth() {
     ..registerFactory<AuthRepository>(
       () => AuthRepositoryImpl(
         serviceLocator<AuthSupabaseDataSource>(),
+        serviceLocator<ConnectionChecker>(),
       ),
     )
     // registerFactory is used to register a factory function that returns a new instance of the UserSignUp
@@ -96,11 +112,16 @@ void _initBlog() {
       () => SupabaseBlogRemoteDatasourceImpl(
           client: serviceLocator<SupabaseClient>()),
     )
+    ..registerFactory<BlogLocalDataSource>(() => BlogLocalDataSourceImpl(
+          serviceLocator<Box>(),
+        ))
     // registerFactory is used to register a factory function that returns a new instance of the UploadBlog
     ..registerFactory<BlogRepository>(
       () => BlogRepositoryImpl(
         supabaseBlogRemoteDatasource:
             serviceLocator<SupabaseBlogRemoteDatasource>(),
+        blogLocalDataSource: serviceLocator<BlogLocalDataSource>(),
+        connectionChecker: serviceLocator<ConnectionChecker>(),
       ),
     )
     ..registerFactory(

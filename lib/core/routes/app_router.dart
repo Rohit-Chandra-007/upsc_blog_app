@@ -2,7 +2,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:go_router/go_router.dart';
 import 'package:upsc_blog_app/core/common/cubits/app_user/app_user_cubit.dart';
-import 'package:upsc_blog_app/core/services/logger_service.dart';
 import 'package:upsc_blog_app/features/auth/presentation/screens/signin_screen.dart';
 import 'package:upsc_blog_app/features/auth/presentation/screens/signup_screen.dart';
 import 'package:upsc_blog_app/features/blog/domain/entities/blog.dart';
