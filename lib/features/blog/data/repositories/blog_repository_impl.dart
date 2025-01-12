@@ -1,14 +1,14 @@
 import 'dart:io';
 
 import 'package:fpdart/fpdart.dart';
-import 'package:upsc_blog_app/core/error/exception.dart';
-import 'package:upsc_blog_app/core/error/failures.dart';
-import 'package:upsc_blog_app/core/network/connection_checker.dart';
-import 'package:upsc_blog_app/features/blog/data/datasources/blog_local_data_source.dart';
-import 'package:upsc_blog_app/features/blog/data/datasources/supabase_blog_remote_datasource.dart';
-import 'package:upsc_blog_app/features/blog/data/models/blog_model.dart';
-import 'package:upsc_blog_app/features/blog/domain/entities/blog.dart';
-import 'package:upsc_blog_app/features/blog/domain/repository/blog_repository.dart';
+import 'package:civilshots/core/error/exception.dart';
+import 'package:civilshots/core/error/failures.dart';
+import 'package:civilshots/core/network/connection_checker.dart';
+import 'package:civilshots/features/blog/data/datasources/blog_local_data_source.dart';
+import 'package:civilshots/features/blog/data/datasources/supabase_blog_remote_datasource.dart';
+import 'package:civilshots/features/blog/data/models/blog_model.dart';
+import 'package:civilshots/features/blog/domain/entities/blog.dart';
+import 'package:civilshots/features/blog/domain/repository/blog_repository.dart';
 import 'package:uuid/uuid.dart';
 
 class BlogRepositoryImpl implements BlogRepository {

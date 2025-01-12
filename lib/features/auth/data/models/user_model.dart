@@ -1,4 +1,4 @@
-import 'package:upsc_blog_app/core/entities/user.dart';
+import 'package:civilshots/core/entities/user.dart';
 
 class UserModel extends User {
   const UserModel({

@@ -1,9 +1,10 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+package="${applicationId}">
     <!-- Permissions for internet_connection_checker -->
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <application
-        android:label="upsc_blog_app"
+        android:label="Civil Shots"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

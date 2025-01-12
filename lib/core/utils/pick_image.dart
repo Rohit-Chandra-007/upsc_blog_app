@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:upsc_blog_app/core/error/exception.dart';
+import 'package:civilshots/core/error/exception.dart';
 
 Future<File?> pickImageFromGallery() async {
   try {

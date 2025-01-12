@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:upsc_blog_app/core/routes/route_name.dart';
-import 'package:upsc_blog_app/core/utils/calculate_reading_time.dart';
-import 'package:upsc_blog_app/core/utils/datatime_converter.dart';
+import 'package:civilshots/core/routes/route_name.dart';
+import 'package:civilshots/core/utils/calculate_reading_time.dart';
+import 'package:civilshots/core/utils/datatime_converter.dart';
 
-import 'package:upsc_blog_app/features/blog/domain/entities/blog.dart';
+import 'package:civilshots/features/blog/domain/entities/blog.dart';
 
 class BlogReaderScreen extends StatelessWidget {
   final Blog blog;

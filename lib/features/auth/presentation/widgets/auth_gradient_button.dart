@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:upsc_blog_app/core/themes/app_color_pallete.dart';
+import 'package:civilshots/core/themes/app_color_pallete.dart';
 
 class AuthGradientButton extends StatelessWidget {
   const AuthGradientButton({super.key, this.isSignIn = false, required this.onPressed});

@@ -1,5 +1,5 @@
 import 'package:hive/hive.dart';
-import 'package:upsc_blog_app/features/blog/data/models/blog_model.dart';
+import 'package:civilshots/features/blog/data/models/blog_model.dart';
 
 abstract interface class BlogLocalDataSource {
   List<BlogModel> getBlogs();

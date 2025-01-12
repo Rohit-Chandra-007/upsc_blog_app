@@ -2,13 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:upsc_blog_app/core/common/widgets/loader.dart';
-import 'package:upsc_blog_app/core/routes/route_name.dart';
-import 'package:upsc_blog_app/core/themes/app_color_pallete.dart';
-import 'package:upsc_blog_app/core/utils/show_snackbar.dart';
-import 'package:upsc_blog_app/features/auth/presentation/bloc/auth_bloc.dart';
-import 'package:upsc_blog_app/features/auth/presentation/widgets/auth_field.dart';
-import 'package:upsc_blog_app/features/auth/presentation/widgets/auth_gradient_button.dart';
+import 'package:civilshots/core/common/widgets/loader.dart';
+import 'package:civilshots/core/routes/route_name.dart';
+import 'package:civilshots/core/themes/app_color_pallete.dart';
+import 'package:civilshots/core/utils/show_snackbar.dart';
+import 'package:civilshots/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:civilshots/features/auth/presentation/widgets/auth_field.dart';
+import 'package:civilshots/features/auth/presentation/widgets/auth_gradient_button.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});

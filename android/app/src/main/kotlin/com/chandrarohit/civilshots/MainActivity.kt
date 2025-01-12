@@ -1,4 +1,4 @@
-package com.example.upsc_blog_app
+package com.chandrarohit.civilshots
 
 import io.flutter.embedding.android.FlutterActivity
 

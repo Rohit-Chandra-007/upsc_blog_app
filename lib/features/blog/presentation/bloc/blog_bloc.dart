@@ -2,10 +2,10 @@ import 'dart:io';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:upsc_blog_app/core/usecase/usecase.dart';
-import 'package:upsc_blog_app/features/blog/domain/entities/blog.dart';
-import 'package:upsc_blog_app/features/blog/domain/usecases/fetch_all_blog.dart';
-import 'package:upsc_blog_app/features/blog/domain/usecases/upload_blog.dart';
+import 'package:civilshots/core/usecase/usecase.dart';
+import 'package:civilshots/features/blog/domain/entities/blog.dart';
+import 'package:civilshots/features/blog/domain/usecases/fetch_all_blog.dart';
+import 'package:civilshots/features/blog/domain/usecases/upload_blog.dart';
 
 part 'blog_event.dart';
 part 'blog_state.dart';

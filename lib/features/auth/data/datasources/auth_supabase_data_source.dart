@@ -1,7 +1,7 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:upsc_blog_app/core/error/exception.dart';
-import 'package:upsc_blog_app/core/error/failures.dart';
-import 'package:upsc_blog_app/features/auth/data/models/user_model.dart';
+import 'package:civilshots/core/error/exception.dart';
+import 'package:civilshots/core/error/failures.dart';
+import 'package:civilshots/features/auth/data/models/user_model.dart';
 
 abstract interface class AuthSupabaseDataSource {
   Session? get currentUserSession;

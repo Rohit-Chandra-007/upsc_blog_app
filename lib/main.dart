@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:upsc_blog_app/core/common/cubits/app_user/app_user_cubit.dart';
-import 'package:upsc_blog_app/core/routes/app_router.dart';
-import 'package:upsc_blog_app/features/blog/presentation/bloc/blog_bloc.dart';
-import 'package:upsc_blog_app/init_dependencies.dart';
+import 'package:civilshots/core/common/cubits/app_user/app_user_cubit.dart';
+import 'package:civilshots/core/routes/app_router.dart';
+import 'package:civilshots/features/blog/presentation/bloc/blog_bloc.dart';
+import 'package:civilshots/init_dependencies.dart';
 import 'core/themes/app_theme.dart';
 import 'features/auth/presentation/bloc/auth_bloc.dart';
 import 'core/services/logger_service.dart';

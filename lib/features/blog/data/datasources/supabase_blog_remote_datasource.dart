@@ -1,8 +1,8 @@
 import 'dart:io';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:upsc_blog_app/core/error/exception.dart';
-import 'package:upsc_blog_app/core/error/failures.dart';
-import 'package:upsc_blog_app/features/blog/data/models/blog_model.dart';
+import 'package:civilshots/core/error/exception.dart';
+import 'package:civilshots/core/error/failures.dart';
+import 'package:civilshots/features/blog/data/models/blog_model.dart';
 
 abstract interface class SupabaseBlogRemoteDatasource {
   Future<BlogModel> uploadBlog({

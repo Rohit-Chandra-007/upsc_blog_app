@@ -1,8 +1,8 @@
 import 'dart:io';
 
 import 'package:fpdart/fpdart.dart';
-import 'package:upsc_blog_app/core/error/failures.dart';
-import 'package:upsc_blog_app/features/blog/domain/entities/blog.dart';
+import 'package:civilshots/core/error/failures.dart';
+import 'package:civilshots/features/blog/domain/entities/blog.dart';
 
 abstract interface class BlogRepository {
   Future<Either<Failure,Blog >> uploadBlog({

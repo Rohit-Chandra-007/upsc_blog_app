@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:upsc_blog_app/core/themes/app_color_pallete.dart';
+import 'package:civilshots/core/themes/app_color_pallete.dart';
 
 class Loader extends StatelessWidget {
   const Loader({super.key});

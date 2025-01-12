@@ -1,9 +1,9 @@
 
 import 'package:fpdart/fpdart.dart';
-import 'package:upsc_blog_app/core/error/failures.dart';
-import 'package:upsc_blog_app/core/usecase/usecase.dart';
-import 'package:upsc_blog_app/core/entities/user.dart';
-import 'package:upsc_blog_app/features/auth/domain/repository/auth_repository.dart';
+import 'package:civilshots/core/error/failures.dart';
+import 'package:civilshots/core/usecase/usecase.dart';
+import 'package:civilshots/core/entities/user.dart';
+import 'package:civilshots/features/auth/domain/repository/auth_repository.dart';
 
 class CurrentUser implements UseCase<NoParams, User> {
   AuthRepository authRepository;

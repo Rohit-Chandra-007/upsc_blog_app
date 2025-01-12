@@ -1,4 +1,4 @@
-import 'package:upsc_blog_app/features/blog/domain/entities/blog.dart';
+import 'package:civilshots/features/blog/domain/entities/blog.dart';
 
 class BlogModel extends Blog {
   BlogModel({

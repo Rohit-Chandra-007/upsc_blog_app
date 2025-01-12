@@ -1,11 +1,11 @@
 import 'package:fpdart/fpdart.dart';
-import 'package:upsc_blog_app/core/error/exception.dart';
-import 'package:upsc_blog_app/core/error/failures.dart';
-import 'package:upsc_blog_app/core/network/connection_checker.dart';
-import 'package:upsc_blog_app/features/auth/data/datasources/auth_supabase_data_source.dart';
-import 'package:upsc_blog_app/core/entities/user.dart';
-import 'package:upsc_blog_app/features/auth/data/models/user_model.dart';
-import 'package:upsc_blog_app/features/auth/domain/repository/auth_repository.dart';
+import 'package:civilshots/core/error/exception.dart';
+import 'package:civilshots/core/error/failures.dart';
+import 'package:civilshots/core/network/connection_checker.dart';
+import 'package:civilshots/features/auth/data/datasources/auth_supabase_data_source.dart';
+import 'package:civilshots/core/entities/user.dart';
+import 'package:civilshots/features/auth/data/models/user_model.dart';
+import 'package:civilshots/features/auth/domain/repository/auth_repository.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   final AuthSupabaseDataSource authSupabaseDataSource;
