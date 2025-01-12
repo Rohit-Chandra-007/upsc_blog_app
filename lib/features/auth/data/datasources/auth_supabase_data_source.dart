@@ -1,5 +1,6 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:upsc_blog_app/core/error/exception.dart';
+import 'package:upsc_blog_app/core/error/failures.dart';
 import 'package:upsc_blog_app/features/auth/data/models/user_model.dart';
 
 abstract interface class AuthSupabaseDataSource {
@@ -38,6 +39,10 @@ class AuthSupabaseDataSourceImpl implements AuthSupabaseDataSource {
       }
 
       return UserModel.fromJson(response.user!.toJson());
+    } on AuthException catch (e) {
+      throw NetworkFailure(e.message);
+    } on StorageException catch (e) {
+      throw NetworkFailure(e.message);
     } catch (e) {
       throw ServerException(message: e.toString());
     }
@@ -59,6 +64,10 @@ class AuthSupabaseDataSourceImpl implements AuthSupabaseDataSource {
       }
 
       return UserModel.fromJson(response.user!.toJson());
+    }on AuthException catch (e) {
+      throw NetworkFailure(e.message);
+    } on StorageException catch (e) {
+      throw NetworkFailure(e.message);
     } catch (e) {
       throw ServerException(message: e.toString());
     }
@@ -77,6 +86,10 @@ class AuthSupabaseDataSourceImpl implements AuthSupabaseDataSource {
         );
       }
       return null;
+    } on AuthException catch (e) {
+      throw NetworkFailure(e.message);
+    } on StorageException catch (e) {
+      throw NetworkFailure(e.message);
     } catch (e) {
       throw ServerException(message: e.toString());
     }

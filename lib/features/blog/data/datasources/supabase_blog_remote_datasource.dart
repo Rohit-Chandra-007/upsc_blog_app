@@ -54,7 +54,11 @@ class SupabaseBlogRemoteDatasourceImpl implements SupabaseBlogRemoteDatasource {
       return client.storage.from('blog_images').getPublicUrl(
             blog.id,
           );
-    } on Exception catch (e) {
+    }on AuthException catch (e) {
+      throw NetworkFailure(e.message);
+    } on StorageException catch (e) {
+      throw NetworkFailure(e.message);
+    } catch (e) {
       throw ServerException(message: e.toString());
     }
   }
@@ -71,8 +75,12 @@ class SupabaseBlogRemoteDatasourceImpl implements SupabaseBlogRemoteDatasource {
             ),
           )
           .toList();
-    } on ServerException catch (e) {
-      throw ServerFailure(e.toString());
+    } on AuthException catch (e) {
+      throw NetworkFailure(e.message);
+    } on StorageException catch (e) {
+      throw NetworkFailure(e.message);
+    } catch (e) {
+      throw ServerException(message: e.toString());
     }
   }
 }

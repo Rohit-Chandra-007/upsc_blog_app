@@ -31,6 +31,9 @@ class _SigninScreenState extends State<SigninScreen> {
             if (state is AuthFailure) {
               showSnackbar(context, state.message);
             }
+            else if (state is AuthSuccess) {
+              context.goNamed(RouteNames.home);
+            }
           },
           builder: (context, state) {
             if (state is AuthLoading) {

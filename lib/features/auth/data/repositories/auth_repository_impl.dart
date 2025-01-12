@@ -1,5 +1,4 @@
 import 'package:fpdart/fpdart.dart';
-import 'package:supabase_flutter/supabase_flutter.dart' as supabase;
 import 'package:upsc_blog_app/core/error/exception.dart';
 import 'package:upsc_blog_app/core/error/failures.dart';
 import 'package:upsc_blog_app/core/network/connection_checker.dart';
@@ -46,9 +45,7 @@ class AuthRepositoryImpl implements AuthRepository {
         return Left(NetworkFailure('User is not logged in'));
       }
       return Right(user);
-    } on supabase.AuthException catch (e) {
-      return Left(NetworkFailure(e.message));
-    } on ServerException catch (e) {
+    }  on ServerException catch (e) {
       return Left(ServerFailure(e.message));
     }
   }
@@ -60,9 +57,7 @@ class AuthRepositoryImpl implements AuthRepository {
       }
       final user = await fn();
       return Right(user);
-    } on supabase.AuthException catch (e) {
-      return Left(NetworkFailure(e.message));
-    } on ServerException catch (e) {
+    }  on ServerException catch (e) {
       return Left(ServerFailure(e.message));
     }
   }

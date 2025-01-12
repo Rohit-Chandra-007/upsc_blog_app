@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:upsc_blog_app/core/common/cubits/app_user/app_user_cubit.dart';
 import 'package:upsc_blog_app/core/common/widgets/loader.dart';
+import 'package:upsc_blog_app/core/constant/constant.dart';
 
 import 'package:upsc_blog_app/core/routes/route_name.dart';
 import 'package:upsc_blog_app/core/themes/app_color_pallete.dart';
@@ -152,12 +153,7 @@ class _AddNewBlogScreenState extends State<AddNewBlogScreen> {
                       scrollDirection: Axis.horizontal,
                       child: Row(
                         spacing: 16,
-                        children: [
-                          'General Studies 1',
-                          'General Studies 2',
-                          'General Studies 3',
-                          'General Studies 4',
-                        ]
+                        children: Constant.selectedCategories
                             .map(
                               (e) => GestureDetector(
                                 onTap: () {
