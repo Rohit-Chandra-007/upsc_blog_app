@@ -6,4 +6,5 @@ class Constant {
     'General Studies 3',
     'General Studies 4',
   ];
+  static const appName = 'Civil Shots';
 }

@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:civilshots/core/routes/route_name.dart';
 import 'package:civilshots/core/utils/calculate_reading_time.dart';
 import 'package:civilshots/core/utils/datatime_converter.dart';
 

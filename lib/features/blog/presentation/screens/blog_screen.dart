@@ -1,3 +1,4 @@
+import 'package:civilshots/core/constant/constant.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,8 +29,8 @@ class _BlogScreenState extends State<BlogScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('UPSC Blog'),
-        centerTitle: true,
+        title: const Text(Constant.appName),
+        //centerTitle: true,
         actions: [
           IconButton(
             onPressed: () {
