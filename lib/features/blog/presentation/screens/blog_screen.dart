@@ -7,7 +7,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:civilshots/core/common/widgets/loader.dart';
 import 'package:civilshots/core/routes/route_name.dart';
-import 'package:civilshots/core/themes/app_color_pallete.dart';
 import 'package:civilshots/core/utils/show_snackbar.dart';
 import 'package:civilshots/features/blog/presentation/bloc/blog_bloc.dart';
 import 'package:civilshots/features/blog/presentation/widgets/blog_card.dart';

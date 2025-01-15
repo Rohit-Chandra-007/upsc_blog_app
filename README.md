@@ -4,6 +4,21 @@
 
 ![Project Logo](assets/images/logo.png)
 
+<table>
+    <tr>
+        <td><img src="flutter_01.png" alt="Home Screen" width="200"/></td>
+        <td><img src="flutter_02.png" alt="Current Affairs" width="200"/></td>
+        <td><img src="flutter_03.png" width="200"/></td>
+        <td><img src="flutter_04.png" alt="Upload Blogs" width="200"/></td>
+    </tr>
+    <tr>
+        <td align="center"><b>Home Screen</b></td>
+        <td align="center"><b>Current Affairs</b></td>
+        <td align="center"><b>Study Materials</b></td>
+        <td align="center"><b>Blog Uploads</b></td>
+    </tr>
+</table>
+
 [![Flutter Version](https://img.shields.io/badge/Flutter-3.27.0-blue.svg)](https://flutter.dev/)
 [![Dart Version](https://img.shields.io/badge/Dart-3.5.0-blue.svg)](https://dart.dev/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
