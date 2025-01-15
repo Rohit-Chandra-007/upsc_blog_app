@@ -90,7 +90,8 @@ class _BlogScreenState extends State<BlogScreen> with TickerProviderStateMixin {
             return TabBarView(
               controller: _tabController,
               children: [
-                _buildBlogList(state.blogs),
+                _buildBlogList(state.blogs
+                  ..sort((a, b) => b.createdAt.compareTo(a.createdAt))),
                 _buildBlogList(
                   state.blogs
                       .where(
