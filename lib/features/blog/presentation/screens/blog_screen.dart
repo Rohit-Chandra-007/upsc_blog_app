@@ -17,12 +17,41 @@ class BlogScreen extends StatefulWidget {
   State<BlogScreen> createState() => _BlogScreenState();
 }
 
-class _BlogScreenState extends State<BlogScreen> {
+class _BlogScreenState extends State<BlogScreen> with TickerProviderStateMixin {
+  late TabController _tabController;
+
   @override
   void initState() {
     super.initState();
-    // Fetch all blog posts
+    _tabController = TabController(length: 8, vsync: this);
     context.read<BlogBloc>().add(const BlogFetchAllEvent());
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
+
+  Widget _buildBlogList(List<dynamic> blogs) {
+    return ListView.builder(
+      itemCount: blogs.length,
+      itemBuilder: (context, index) {
+        return GestureDetector(
+          onTap: () {
+            context.pushNamed(RouteNames.blogReader, extra: blogs[index]);
+          },
+          child: BlogCard(
+            blog: blogs[index],
+            color: index % 3 == 0
+                ? AppPallete.gradient2
+                : index % 3 == 1
+                    ? AppPallete.gradient3
+                    : AppPallete.gradient1,
+          ),
+        );
+      },
+    );
   }
 
   @override
@@ -30,18 +59,24 @@ class _BlogScreenState extends State<BlogScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(Constant.appName),
-        //centerTitle: true,
         actions: [
           IconButton(
             onPressed: () {
-              // Navigate to Add New Blog Screen
               context.pushNamed(RouteNames.addNewBlog);
             },
-            icon: const Icon(
-              CupertinoIcons.add_circled,
-            ),
+            icon: const Icon(CupertinoIcons.add_circled),
           ),
         ],
+        bottom: TabBar(
+          physics: const BouncingScrollPhysics(),
+          isScrollable: true,
+          controller: _tabController,
+          tabs: Constant.tabBarName.map((e) {
+            return Tab(
+              text: e,
+            );
+          }).toList(),
+        ),
       ),
       body: BlocConsumer<BlogBloc, BlogState>(
         listener: (context, state) {
@@ -54,26 +89,18 @@ class _BlogScreenState extends State<BlogScreen> {
             return const Loader();
           }
           if (state is BlogFetchAllSuccess) {
-            return ListView.builder(
-              itemCount:
-                  state.blogs.length, // Replace with actual blog posts count
-              itemBuilder: (context, index) {
-                return GestureDetector(
-                  onTap: () {
-                    // Navigate to Blog Reader Screen
-                    context.pushNamed(RouteNames.blogReader,
-                        extra: state.blogs[index]);
-                  },
-                  child: BlogCard(
-                    blog: state.blogs[index],
-                    color: index % 3 == 0
-                        ? AppPallete.gradient2
-                        : index % 3 == 1
-                            ? AppPallete.gradient3
-                            : AppPallete.gradient1,
-                  ),
-                );
-              },
+            return TabBarView(
+              controller: _tabController,
+              children: [
+                _buildBlogList(state.blogs),
+                _buildBlogList(state.blogs),
+                _buildBlogList(state.blogs),
+                _buildBlogList(state.blogs),
+                _buildBlogList(state.blogs),
+                _buildBlogList(state.blogs),
+                _buildBlogList(state.blogs),
+                _buildBlogList(state.blogs),
+              ],
             );
           }
           return const SizedBox();

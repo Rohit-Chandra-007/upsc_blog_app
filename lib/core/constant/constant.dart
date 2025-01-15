@@ -7,4 +7,16 @@ class Constant {
     'General Studies 4',
   ];
   static const appName = 'Civil Shots';
+
+  static const List<String> tabBarName = [
+    'Trending',
+    'Economy',
+    'Polity',
+    'History',
+    'Geography',
+    'Science and Technology',
+    'Environment',
+    'International Relations',
+   
+  ];
 }

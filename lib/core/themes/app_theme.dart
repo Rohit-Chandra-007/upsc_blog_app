@@ -44,5 +44,19 @@ class AppTheme {
       focusedBorder: _boarder(color: AppPallete.gradient2),
       errorBorder: _boarder(color: AppPallete.errorColor),
     ),
+    tabBarTheme: ThemeData.dark().tabBarTheme.copyWith(
+          tabAlignment: TabAlignment.start,
+          labelColor: AppPallete.whiteColor,
+          unselectedLabelColor: AppPallete.tabText,
+          dividerColor: AppPallete.transparentColor,
+          indicatorColor: AppPallete.transparentColor,
+          labelStyle: const TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+          ),
+          overlayColor: WidgetStateColor.resolveWith(
+            (states) => AppPallete.backgroundColor,
+          ),
+        ),
   );
 }
