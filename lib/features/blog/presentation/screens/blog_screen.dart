@@ -91,10 +91,30 @@ class _BlogScreenState extends State<BlogScreen> with TickerProviderStateMixin {
               controller: _tabController,
               children: [
                 _buildBlogList(state.blogs),
-                _buildBlogList(state.blogs),
-                _buildBlogList(state.blogs),
-                _buildBlogList(state.blogs),
-                _buildBlogList(state.blogs),
+                _buildBlogList(
+                  state.blogs
+                      .where(
+                          (blog) => blog.topics.contains('General Studies 1'))
+                      .toList(),
+                ),
+                _buildBlogList(
+                  state.blogs
+                      .where(
+                          (blog) => blog.topics.contains('General Studies 2'))
+                      .toList(),
+                ),
+                _buildBlogList(
+                  state.blogs
+                      .where(
+                          (blog) => blog.topics.contains('General Studies 3'))
+                      .toList(),
+                ),
+                _buildBlogList(
+                  state.blogs
+                      .where(
+                          (blog) => blog.topics.contains('General Studies 4'))
+                      .toList(),
+                ),
               ],
             );
           }
