@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:civilshots/core/constant/constant.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +25,7 @@ class _BlogScreenState extends State<BlogScreen> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 8, vsync: this);
+    _tabController = TabController(length: 5, vsync: this);
     context.read<BlogBloc>().add(const BlogFetchAllEvent());
   }
 
@@ -43,11 +45,8 @@ class _BlogScreenState extends State<BlogScreen> with TickerProviderStateMixin {
           },
           child: BlogCard(
             blog: blogs[index],
-            color: index % 3 == 0
-                ? AppPallete.gradient2
-                : index % 3 == 1
-                    ? AppPallete.gradient3
-                    : AppPallete.gradient1,
+            color:
+                Constant.cardColor[Random().nextInt(Constant.cardColor.length)],
           ),
         );
       },
@@ -92,9 +91,6 @@ class _BlogScreenState extends State<BlogScreen> with TickerProviderStateMixin {
             return TabBarView(
               controller: _tabController,
               children: [
-                _buildBlogList(state.blogs),
-                _buildBlogList(state.blogs),
-                _buildBlogList(state.blogs),
                 _buildBlogList(state.blogs),
                 _buildBlogList(state.blogs),
                 _buildBlogList(state.blogs),

@@ -10,13 +10,17 @@ class AppPallete {
   static const Color whiteColor = Colors.white;
   static const Color greyColor = Colors.grey;
   static const Color errorColor = Colors.redAccent;
-  static const Color transparentColor = Colors.transparent;
 
   static const Color backgroundColor = Color(0xFF121212);
   static const Color cardRed = Color(0xFFFF6B6B);
   static const Color cardGreen = Color(0xFF4CAF50);
-  static const Color cardYellow = Color(0xFFFFEB3B);
+  static const Color cardYellow = Color(0xFFFFC107);
+  static const Color cardOrange = Color(0xFFFF9800);
+  static const Color cardPink = Color(0xFFE91E63);
+  static const Color cardTeal = Color(0xFF009688);
+  static const Color cardBlue = Color(0xFF2196F3);
   static const Color cardPurple = Color(0xFF9C27B0);
+  static const Color transparentColor = Colors.transparent;
 
   // Text Colors
   static const Color textWhite = Colors.white;
