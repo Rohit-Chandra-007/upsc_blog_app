@@ -20,8 +20,58 @@ class AppTheme {
       backgroundColor: AppPallete.backgroundColor,
       elevation: 0,
     ),
-    textTheme: ThemeData.dark().textTheme.apply(
-          fontFamily: 'Poppins',
+    textTheme: ThemeData.dark().textTheme.copyWith(
+          titleLarge: TextStyle(
+            color: AppPallete.whiteColor,
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'SF Pro Display',
+          ),
+          titleMedium: TextStyle(
+            color: AppPallete.whiteColor,
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'SF Pro Display',
+          ),
+          titleSmall: TextStyle(
+            color: AppPallete.whiteColor,
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'SF Pro Display',
+          ),
+          bodyLarge: TextStyle(
+            color: AppPallete.whiteColor,
+            fontSize: 18,
+            fontFamily: 'SF Pro Display',
+          ),
+          bodyMedium: TextStyle(
+            color: AppPallete.whiteColor,
+            fontSize: 16,
+            fontFamily: 'SF Pro Display',
+          ),
+          bodySmall: TextStyle(
+            color: AppPallete.whiteColor,
+            fontSize: 14,
+            fontFamily: 'SF Pro Display',
+          ),
+          labelLarge: TextStyle(
+            color: AppPallete.whiteColor,
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'SF Pro Display',
+          ),
+          labelMedium: TextStyle(
+            color: AppPallete.whiteColor,
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'SF Pro Display',
+          ),
+          labelSmall: TextStyle(
+            color: AppPallete.whiteColor,
+            fontSize: 14,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'SF Pro Display',
+          ),
         ),
     chipTheme: ThemeData.dark().chipTheme.copyWith(
           backgroundColor: AppPallete.backgroundColor,
