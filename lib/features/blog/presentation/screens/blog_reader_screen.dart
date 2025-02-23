@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:go_router/go_router.dart';
 import 'package:civilshots/core/utils/calculate_reading_time.dart';
 import 'package:civilshots/core/utils/datatime_converter.dart';
@@ -120,12 +121,31 @@ class BlogReaderScreen extends StatelessWidget {
                         const SizedBox(height: 24),
 
                         // Content
-                        Text(
-                          blog.content,
-                          style: const TextStyle(
-                            color: Colors.grey,
-                            height: 1.6,
+                        // Content
+                        Markdown(
+                          data: blog.content,
+                          styleSheet: MarkdownStyleSheet(
+                            h1: const TextStyle(
+                              fontSize: 28,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.blue,
+                            ),
+                            h2: const TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.deepPurple,
+                            ),
+                            p: const TextStyle(
+                              fontSize: 16,
+                              color: Colors.white70,
+                            ),
+                            listBullet: const TextStyle(
+                              fontSize: 16,
+                              color: Colors.amber,
+                            ),
                           ),
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
                         ),
 
                         const SizedBox(height: 24),

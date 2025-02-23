@@ -21,14 +21,14 @@ Future<void> _initSupabase() async {
     url: supabaseUrl!,
     anonKey: supabaseAnonKey!,
   );
-
+ // purpose of this line is to set the default directory for the Hive database
   Hive.defaultDirectory = (await getApplicationDocumentsDirectory()).path;
 
-  // registoring the internet connection checker
+  // registering the internet connection checker
   serviceLocator
     ..registerFactory(() => InternetConnection())
 
-    // Hive
+    // Hive 
     ..registerLazySingleton<Box>(() => Hive.box(name: 'blogs'))
 
     // add the ConnectionCheckerImpl to the serviceLocator
