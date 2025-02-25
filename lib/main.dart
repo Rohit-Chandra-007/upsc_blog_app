@@ -8,6 +8,8 @@ import 'package:civilshots/init_dependencies.dart';
 import 'core/themes/app_theme.dart';
 import 'features/auth/presentation/bloc/auth_bloc.dart';
 import 'core/services/logger_service.dart';
+import 'package:flutter_quill/flutter_quill.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() async {
   try {
@@ -63,6 +65,16 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     // Initialize AppRouter
     return MaterialApp.router(
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        FlutterQuillLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale('en'), // English
+        // Add other locales you want to support
+      ],
       title: 'Blog App',
       theme: AppTheme.darkThemeMode,
       debugShowCheckedModeBanner: false,

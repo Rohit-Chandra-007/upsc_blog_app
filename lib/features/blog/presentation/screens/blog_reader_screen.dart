@@ -128,6 +128,45 @@ class BlogReaderScreen extends StatelessWidget {
                             h1: const TextStyle(
                               fontSize: 28,
                               fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                            h2: const TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.white,
+                            ),
+                            p: const TextStyle(
+                              fontSize: 16,
+                              color: Colors.white70,
+                              height: 1.5,
+                            ),
+                            strong: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                            em: const TextStyle(
+                              fontStyle: FontStyle.italic,
+                              color: Colors.white70,
+                            ),
+                            blockquote: const TextStyle(
+                              color: Colors.grey,
+                              fontSize: 16,
+                              fontStyle: FontStyle.italic,
+                            ),
+                            listBullet: const TextStyle(
+                              color: Colors.white70,
+                            ),
+                          ),
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                        ),
+                        // Content
+                        Markdown(
+                          data: blog.content,
+                          styleSheet: MarkdownStyleSheet(
+                            h1: const TextStyle(
+                              fontSize: 28,
+                              fontWeight: FontWeight.bold,
                               color: Colors.blue,
                             ),
                             h2: const TextStyle(
