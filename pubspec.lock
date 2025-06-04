@@ -931,7 +931,7 @@ packages:
     source: hosted
     version: "2.1.0"
   overlord:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: overlord
       sha256: "576256bc9ce3fb0ae3042bbb26eed67bdb26a5045dd7e3c851aae65b0bbab2f5"
@@ -1411,20 +1411,28 @@ packages:
     dependency: "direct main"
     description:
       name: super_editor
-      sha256: ad0edca9c7d0516df0d2261552cdfff305138a6a7dc5ec3230faacb4d357ab3d
+      sha256: "519f6f6edf30676b7f828d557afee7754c99129410955994fd10d0773397c446"
       url: "https://pub.dev"
     source: hosted
-    version: "0.3.0-dev.24"
+    version: "0.3.0-dev.23"
+  super_editor_markdown:
+    dependency: "direct main"
+    description:
+      name: super_editor_markdown
+      sha256: a5af6eb68a03a243378504bcebd1e855f36cc01b0122a11d9b5751232b61bf69
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.7"
   super_keyboard:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: super_keyboard
-      sha256: aca5352c82489c0a3910240da1cccc9689a5b008aefd11f51f53fe3fa82b59da
+      sha256: "06662d12c88f0d0f0979d1a27729007a9b5e389e3b9a8adf2531e4c562df2540"
       url: "https://pub.dev"
     source: hosted
-    version: "0.2.1"
+    version: "0.1.1"
   super_text_layout:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: super_text_layout
       sha256: "166b0eb846d186b349986619ddcbf5227f33ee216b7758dfa1e37b1a26a785ef"

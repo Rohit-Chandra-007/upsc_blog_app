@@ -1,3 +1,5 @@
+
+import 'package:civilshots/features/blog/presentation/widgets/toolbar.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:super_editor/super_editor.dart';
@@ -22,7 +24,7 @@ class _BlogEditorScreenState extends State<BlogEditorScreen> {
 
   final FocusNode _focusNode = FocusNode();
   final ScrollController _scrollController = ScrollController();
-  final GlobalKey<DocumentLayoutState> _layoutKey = GlobalKey();
+  final GlobalKey _layoutKey = GlobalKey();
   final SelectionLayerLinks _layerLinks = SelectionLayerLinks();
   final OverlayPortalController _toolbarController = OverlayPortalController();
 
@@ -31,7 +33,7 @@ class _BlogEditorScreenState extends State<BlogEditorScreen> {
     super.initState();
     _document = MutableDocument(nodes: [
       ParagraphNode(
-        id: DocumentEditor.createNodeId(),
+        id: Editor.createNodeId(),
         text: AttributedText('Start writing...'),
       ),
     ]);
@@ -88,13 +90,13 @@ class _BlogEditorScreenState extends State<BlogEditorScreen> {
       body: OverlayPortal(
         controller: _toolbarController,
         overlayChildBuilder: (_) => EditorToolbar(
-          editorViewportKey: _layoutKey,
+          
           anchor: _layerLinks.expandedSelectionBoundsLink,
-          editorFocusNode: _focusNode,
+          
           editor: _editor,
           document: _document,
           composer: _composer,
-          closeToolbar: _toolbarController.hide,
+          
         ),
         child: _buildEditor(context),
       ),
