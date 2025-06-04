@@ -77,8 +77,9 @@ class _MyAppState extends State<MyApp> {
       ],
       title: 'Blog App',
       theme: AppTheme.darkThemeMode,
+      themeMode: ThemeMode.dark,
       debugShowCheckedModeBanner: false,
-      routerConfig: AppRouterConfig.router, // Update this line
+      routerConfig: AppRouterConfig.router,
     );
   }
 }
