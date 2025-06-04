@@ -1,133 +1,114 @@
+// editor_toolbar.dart
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:follow_the_leader/follow_the_leader.dart';
 import 'package:overlord/follow_the_leader.dart';
 import 'package:super_editor/super_editor.dart';
 
-/// A light-weight floating toolbar for `SuperEditor`.
-///
-/// Put this widget in an [Overlay] or any [Stack].  Attach its [anchor] to
-/// the current document selection rectangle (see example call below).
-///
-/// ```dart
-/// OverlayEntry _toolbarEntry() => OverlayEntry(
-///   builder: (_) => SimpleEditorToolbar(
-///     anchor: mySelectionLink,
-///     composer: myComposer,
-///     editor: myEditor,
-///     document: myDocument,
-///   ),
-/// );
-/// ```
 class EditorToolbar extends StatefulWidget {
   const EditorToolbar({
     super.key,
     required this.anchor,
+    required this.viewportKey,
+    required this.boundary,
     required this.composer,
     required this.editor,
     required this.document,
   });
 
-  /// Where the toolbar should hover.
-  final LeaderLink anchor;
-
+  final LeaderLink anchor;                 // leader from SelectionLayerLinks
+  final GlobalKey viewportKey;             // editor viewport
+  final FollowerBoundary boundary;         // keeps toolbar inside viewport
   final DocumentComposer composer;
-  final Editor editor;
-  final Document document;
+  final Editor           editor;
+  final Document         document;
 
   @override
   State<EditorToolbar> createState() => _EditorToolbarState();
 }
 
 class _EditorToolbarState extends State<EditorToolbar> {
-  late final FollowerAligner _toolbarAligner;
-  final GlobalKey _viewportKey = GlobalKey();
+  late final FollowerAligner _aligner;     // decides “above or below?”
 
-  // ─────────────────────────────────────────── Formatting helpers ──────────── //
+  @override
+  void initState() {
+    super.initState();
+    _aligner = CupertinoPopoverToolbarAligner(widget.viewportKey);
+  }
+
+  // ───────── selection helpers ─────────
   bool get _validSelection {
-    final sel = widget.composer.selection;
-    return sel != null && sel.base.nodeId == sel.extent.nodeId;
+    final s = widget.composer.selection;
+    return s != null && s.base.nodeId == s.extent.nodeId && !s.isCollapsed;
   }
 
-  ParagraphNode? get _selectedParagraph {
-    if (!_validSelection) return null;
-    final node = widget.document.getNodeById(widget.composer.selection!.extent.nodeId);
-    return node is ParagraphNode ? node : null;
-  }
+  ParagraphNode? get _para =>
+      _validSelection ? widget.document.getNodeById(
+        widget.composer.selection!.extent.nodeId,
+      ) as ParagraphNode? : null;
 
-  ListItemNode? get _selectedList => _validSelection
-      ? widget.document.getNodeById(widget.composer.selection!.extent.nodeId) as ListItemNode?
-      : null;
+  ListItemNode? get _list => _validSelection
+      ? widget.document.getNodeById(widget.composer.selection!.extent.nodeId)
+          as ListItemNode? : null;
 
-  void _toggleAttrib(Set<Attribution> attrs) {
-    widget.editor.execute([
-      ToggleTextAttributionsRequest(
-        documentRange: widget.composer.selection!,
-        attributions: attrs,
-      ),
-    ]);
-  }
+  void _toggleAttrib(Set<Attribution> attrs) => widget.editor.execute([
+        ToggleTextAttributionsRequest(
+          documentRange: widget.composer.selection!,
+          attributions: attrs,
+        ),
+      ]);
 
-  void _toggleBlockType(_TextType target) {
+  void _toggleBlockType(_TextType t) {
     if (!_validSelection) return;
-    final isList = target == _TextType.orderedList || target == _TextType.unorderedList;
+    final id     = widget.composer.selection!.extent.nodeId;
+    final isList = t == _TextType.ol || t == _TextType.ul;
 
-    if (isList && _selectedList == null) {
-      // paragraph → list
+    if (isList && _list == null) {
       widget.editor.execute([
         ConvertParagraphToListItemRequest(
-          nodeId: widget.composer.selection!.extent.nodeId,
-          type: target == _TextType.orderedList ? ListItemType.ordered : ListItemType.unordered,
+          nodeId: id,
+          type: t == _TextType.ol ? ListItemType.ordered : ListItemType.unordered,
         ),
       ]);
-    } else if (!isList && _selectedList != null) {
-      // list → paragraph
+    } else if (!isList && _list != null) {
       widget.editor.execute([
-        ConvertListItemToParagraphRequest(
-          nodeId: widget.composer.selection!.extent.nodeId,
-          paragraphMetadata: {
-            'blockType': target == _TextType.header1 ? header1Attribution : null,
-          },
-        ),
+        ConvertListItemToParagraphRequest(nodeId: id, paragraphMetadata: {
+          'blockType': t == _TextType.h1 ? header1Attribution : null,
+        }),
       ]);
     } else {
-      // paragraph ↔ header
       widget.editor.execute([
         ChangeParagraphBlockTypeRequest(
-          nodeId: widget.composer.selection!.extent.nodeId,
-          blockType: target == _TextType.header1 ? header1Attribution : null,
+          nodeId: id,
+          blockType: t == _TextType.h1 ? header1Attribution : null,
         ),
       ]);
     }
   }
 
-  void _toggleAlignment(TextAlign align) {
-    final para = _selectedParagraph;
-    if (para == null) return;
-
+  void _toggleAlign(TextAlign a) {
+    final p = _para;
+    if (p == null) return;
     widget.editor.execute([
-      ChangeParagraphAlignmentRequest(
-        nodeId: para.id,
-        alignment: align,
-      ),
+      ChangeParagraphAlignmentRequest(nodeId: p.id, alignment: a),
     ]);
   }
 
   void _toggleLink() {
     if (!_validSelection) return;
-    final textNode = widget.document.getNodeById(widget.composer.selection!.extent.nodeId) as TextNode;
-    final sel = widget.composer.selection!;
-    final start = (sel.base.nodePosition as TextPosition).offset;
-    final end = (sel.extent.nodePosition as TextPosition).offset;
+    final sel      = widget.composer.selection!;
+    final textNode = widget.document.getNodeById(sel.extent.nodeId) as TextNode;
+
+    final start = (sel.base.nodePosition   as TextPosition).offset;
+    final end   = (sel.extent.nodePosition as TextPosition).offset;
     final range = SpanRange(min(start, end), max(start, end) - 1);
 
-    final spans = textNode.text.getAttributionSpansInRange(
+    final links = textNode.text.getAttributionSpansInRange(
       range: range,
       attributionFilter: (a) => a is LinkAttribution,
     );
 
-    if (spans.isEmpty) {
-      // add link
+    if (links.isEmpty) {
       widget.editor.execute([
         AddTextAttributionsRequest(
           documentRange: sel,
@@ -135,66 +116,51 @@ class _EditorToolbarState extends State<EditorToolbar> {
         ),
       ]);
     } else {
-      // remove link(s)
-      for (final span in spans) {
+      for (final span in links) {
         textNode.text.removeAttribution(span.attribution, span.range);
       }
     }
   }
 
   @override
-  void initState() {
-    super.initState();
-    // Place the toolbar above the content by default.
-    _toolbarAligner = CupertinoPopoverToolbarAligner(_viewportKey);
-  }
-  // ──────────────────────────────────────────────────────────────── UI ───── //
-  @override
   Widget build(BuildContext context) {
     return Follower.withAligner(
       link: widget.anchor,
+      aligner: _aligner,
+      boundary: widget.boundary,
       showWhenUnlinked: false,
-      aligner: _toolbarAligner,
       child: Material(
         elevation: 4,
         shape: const StadiumBorder(),
         clipBehavior: Clip.hardEdge,
         child: SizedBox(
           height: 38,
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              _icon(Icons.format_bold, () => _toggleAttrib({boldAttribution})),
-              _icon(Icons.format_italic, () => _toggleAttrib({italicsAttribution})),
-              _icon(Icons.format_underline, () => _toggleAttrib({underlineAttribution})),
-              _icon(Icons.strikethrough_s, () => _toggleAttrib({strikethroughAttribution})),
-              _divider(),
-              _icon(Icons.title, () => _toggleBlockType(_TextType.header1)),
-              _icon(Icons.notes, () => _toggleBlockType(_TextType.paragraph)),
-              _divider(),
-              _icon(Icons.format_list_numbered, () => _toggleBlockType(_TextType.orderedList)),
-              _icon(Icons.format_list_bulleted, () => _toggleBlockType(_TextType.unorderedList)),
-              _divider(),
-              _icon(Icons.format_align_left, () => _toggleAlignment(TextAlign.left)),
-              _icon(Icons.format_align_center, () => _toggleAlignment(TextAlign.center)),
-              _icon(Icons.format_align_right, () => _toggleAlignment(TextAlign.right)),
-              _divider(),
-              _icon(Icons.link, _toggleLink),
-            ],
-          ),
+          child: Row(mainAxisSize: MainAxisSize.min, children: [
+            _btn(Icons.format_bold,        () => _toggleAttrib({boldAttribution})),
+            _btn(Icons.format_italic,      () => _toggleAttrib({italicsAttribution})),
+            _btn(Icons.format_underline,   () => _toggleAttrib({underlineAttribution})),
+            _btn(Icons.strikethrough_s,    () => _toggleAttrib({strikethroughAttribution})),
+            _div(),
+            _btn(Icons.title,              () => _toggleBlockType(_TextType.h1)),
+            _btn(Icons.notes,              () => _toggleBlockType(_TextType.p)),
+            _div(),
+            _btn(Icons.format_list_numbered,() => _toggleBlockType(_TextType.ol)),
+            _btn(Icons.format_list_bulleted,() => _toggleBlockType(_TextType.ul)),
+            _div(),
+            _btn(Icons.format_align_left,  () => _toggleAlign(TextAlign.left)),
+            _btn(Icons.format_align_center,() => _toggleAlign(TextAlign.center)),
+            _btn(Icons.format_align_right, () => _toggleAlign(TextAlign.right)),
+            _div(),
+            _btn(Icons.link,               _toggleLink),
+          ]),
         ),
       ),
     );
   }
 
-  Widget _icon(IconData icon, VoidCallback onTap) => IconButton(
-        icon: Icon(icon, size: 18),
-        splashRadius: 18,
-        padding: EdgeInsets.zero,
-        onPressed: onTap,
-      );
-
-  Widget _divider() => Container(width: 1, height: 24, color: Colors.grey.shade300);
+  IconButton _btn(IconData icon, VoidCallback cb) =>
+      IconButton(icon: Icon(icon, size: 18), splashRadius: 18, padding: EdgeInsets.zero, onPressed: cb);
+  Container  _div() => Container(width: 1, height: 24, color: Colors.grey.shade300);
 }
 
-enum _TextType { header1, paragraph, orderedList, unorderedList }
+enum _TextType { h1, p, ol, ul }
