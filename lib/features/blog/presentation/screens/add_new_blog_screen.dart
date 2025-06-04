@@ -1,3 +1,4 @@
+import 'package:civilshots/features/blog/presentation/widgets/animated_size_and_fade.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;
 import 'package:flutter/services.dart';
@@ -8,7 +9,7 @@ import 'dart:io';
 import 'package:image_picker/image_picker.dart'; // Add this import
 
 class AddNewBlogScreen extends StatefulWidget {
-  const AddNewBlogScreen({Key? key}) : super(key: key);
+  const AddNewBlogScreen({super.key});
 
   @override
   State<AddNewBlogScreen> createState() => _AddNewBlogScreenState();
@@ -768,27 +769,3 @@ class _CustomImageEmbedBuilder extends EmbedBuilder {
 }
 
 // Custom animation widget for smooth transitions
-class AnimatedSizeAndFade extends StatelessWidget {
-  final Widget child;
-  final bool isVisible;
-  final Duration duration;
-
-  const AnimatedSizeAndFade({
-    Key? key,
-    required this.child,
-    required this.isVisible,
-    this.duration = const Duration(milliseconds: 300),
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return AnimatedSize(
-      duration: duration,
-      child: AnimatedOpacity(
-        opacity: isVisible ? 1.0 : 0.0,
-        duration: duration,
-        child: isVisible ? child : Container(height: 0),
-      ),
-    );
-  }
-}

@@ -1,3 +1,4 @@
+import 'package:civilshots/features/blog/presentation/screens/blog_editor_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:go_router/go_router.dart';
@@ -48,7 +49,7 @@ class AppRouterConfig {
       GoRoute(
         path: RoutePaths.addNewBlog,
         name: RouteNames.addNewBlog,
-        builder: (context, state) => const AddNewBlogScreen(),
+        builder: (context, state) => const BlogEditorScreen(),
       ),
       GoRoute(
           path: RoutePaths.blogReader,
@@ -57,7 +58,7 @@ class AppRouterConfig {
             // Extract the blog id from the state
             // Retrieve the data from `state.extra` and cast it to the correct type
             final Blog blog = state.extra as Blog;
-            
+
             return BlogReaderScreen(
               blog: blog,
             );
